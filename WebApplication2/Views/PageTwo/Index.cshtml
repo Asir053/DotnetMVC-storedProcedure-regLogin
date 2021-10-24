@@ -1,0 +1,130 @@
+﻿
+@model  WebApplication2.Models.Registration
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registration</title>
+    <style>
+        .inline-label {
+            white-space: nowrap;
+            width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            float: left;
+        }
+        #form1 {
+            background-image: linear-gradient(45deg, #ff8080, white);
+            border-radius: 25px;
+            width:520px;
+        }
+        .wrapper{
+            padding:1px 0 50px 50px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container-fluid">
+
+        <!------ Include the above in your HEAD tag ---------->
+        @using (Html.BeginForm("Index", "PageTwo", FormMethod.Post, new { id = "form1" }))
+        {
+            @Html.AntiForgeryToken()
+            
+                
+                <div class="wrapper">
+                <h3 style="text-decoration: underline; margin-left:120px;">User Registration</h3>
+                <div class="form-group">
+                    <div style="white-space:nowrap;">
+                        <label class="inline-label">
+                            Name
+                        </label>
+                           
+                                @Html.TextBoxFor(e => e.Name, new { @class = "form-control", placeholder = "Name *" })
+                            @Html.ValidationMessageFor(e => e.Name)
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="inline-label">
+                        Address
+                    </label>
+                    @Html.TextBoxFor(e => e.Address, new { @class = "form-control", placeholder = "Your Email Address *" })
+                    @Html.ValidationMessageFor(e => e.Address)
+                </div>
+                <div class="form-group">
+                    <label class="inline-label">
+                        Username
+                    </label>
+                    @Html.TextBoxFor(e => e.Username, new { @class = "form-control", placeholder = "Your Username *" })
+                    @Html.ValidationMessageFor(e => e.Username)
+                </div>
+                <div class="form-group">
+                    <label class="inline-label">
+                        Password
+                    </label>
+                    @Html.PasswordFor(e => e.Password, new { id = "password", @class = "form-control", placeholder = "Password *" })
+                    <span id="result"></span>
+                    @Html.ValidationMessageFor(e => e.Password)
+                </div>
+                <div class="form-group">
+                    <label class="inline-label">
+                        Confirm Pwd
+                    </label>
+                    @Html.PasswordFor(e => e.Confirmpwd, new { @class = "form-control", placeholder = "Confirm Password *" })
+                    @Html.ValidationMessageFor(e => e.Confirmpwd)
+                </div>
+                <div class="form-group">
+                    <label class="inline-label">
+                        Role
+                    </label>
+                    <div class="maxl">
+                        <label class="radio-inline">@Html.RadioButtonFor(e => e.Role, "Admin", new { @class = "radio inline" })<span> Admin </span></label>
+                        <label class="radio-inline">@Html.RadioButtonFor(e => e.Role, "User", new { @class = "radio inline" })<span>User </span></label>
+                    </div>
+                </div>
+
+
+                <input style="margin-left: 50px;" type="submit" class="btnRegister" value="Register" />
+                <button style="margin-left:30px;" onclick="Refresh()">Refresh</button>
+                </div>
+
+                <script type="text/javascript">
+
+         $(function () {
+            var msg = '@ViewData["result"]';
+            if (msg == '1')
+            {
+                alert("User Details Inserted Successfully");
+                window.location.href = "@Url.Action("Index", "PageOne")";
+             }
+         });
+
+          function Refresh() {
+            document.getElementById('form1').reset();
+         };
+
+                </script>
+
+            
+
+        }
+    </div>
+
+
+
+    
+</body>
+</html>
+
+
+
+
+
+

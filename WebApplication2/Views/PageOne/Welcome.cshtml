@@ -1,0 +1,109 @@
+﻿@model  WebApplication2.Models.Registration
+@{
+    ViewBag.Title = "Welcome";
+}
+
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+   <style>
+       .inline-label {
+           white-space: nowrap;
+           width: 150px;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           float: left;
+       }
+
+       #form2 {
+           background-image: linear-gradient(45deg, #ff8080, white);
+           border-radius: 25px;
+           width: 520px;
+       }
+
+       .wrapper {
+           padding: 1px 0 50px 50px;
+       }
+
+       a.Logout-btn {
+           -webkit-appearance: button;
+           -moz-appearance: button;
+           appearance: button;
+           text-decoration: none;
+           color: black;
+           border: 0.2px solid black;
+           padding: 1px 1px;
+           background-color: #e7e7e7;
+       }
+   </style>
+
+</head>
+<body>
+    <form id = "form2">
+        <div class="wrapper">
+            <h3 style="text-decoration: underline; margin-left:120px;">User Details</h3>
+            @if (Model != null)
+            {
+                if (Model.Registrationsinfo.Count > 0)
+                {
+
+
+                    foreach (var item in Model.Registrationsinfo)
+                    {
+
+
+                        <div class="form-group">
+                            <label class="inline-label">
+                                Name
+                            </label>
+
+                            <input type="text" value="@Html.DisplayFor(modelitem => item.Name)" name="field1" class="field-style field-split align-left" placeholder="Name" readonly />
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="inline-label">
+                                Address
+                            </label>
+                            <input type="text" value="@Html.DisplayFor(modelitem => item.Address)" name="field1" class="field-style field-split align-left" placeholder="Name" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label class="inline-label">
+                                Username
+                            </label>
+                            <input type="text" value="@Html.DisplayFor(modelitem => item.Username)" name="field1" class="field-style field-split align-left" placeholder="Name" readonly />
+                        </div>
+
+
+                        <a style="margin-left:140px;" class="Logout-btn" href="../PageOne">LOGOUT</a>
+                        if (item.Username == Session["Username"].ToString() && item.Role == "Admin")
+                        {
+
+                            <a class="Logout-btn" style="margin-left:35px;" href="../Admin">Admin</a>
+
+                        }
+                    }
+
+
+                }
+
+
+                else
+                {
+                    <b>No Details Found.</b>
+                }
+            }
+
+        </div>
+    </form>
+
+        </body>
+</html>
+
+
+
